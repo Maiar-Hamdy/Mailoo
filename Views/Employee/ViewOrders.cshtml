@@ -1,0 +1,43 @@
+﻿@model List<Order>
+@using Mailo.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "View Orders";
+}
+
+<h1>View Orders</h1>
+<a asp-action="ViewRequiredOrders" asp-controller="Employee" asp-route-EmpId="@UserManager.GetUserId(User)">View My Required Tasks</a>
+<table class="table table-hovered table-info table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Order Address</th>
+            <th>Order Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Order o in Model)
+        {
+            <tr>
+                <td>@o.ID</td>
+                <td>@o.OrderAddress</td>
+                <td>@o.OrderDate </td>
+                @if (o.EmpID == null)
+                {
+                    <td colspan="2"><button asp-action="AcceptOrder" asp-controller="Employee" asp-route-OrderId="@o.ID" asp-route-EmpId="@UserManager.GetUserId(User)">Accept</button></td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="EditOrder" asp-controller="Employee" asp-route-OrderId="@o.ID">Edit</a>
+                    </td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+

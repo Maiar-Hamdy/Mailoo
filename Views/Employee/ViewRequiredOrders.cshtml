@@ -1,0 +1,33 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "View Required Orders";
+}
+
+<h1>View Required Orders</h1>
+<a asp-action="ViewRequiredOrders" asp-controller="Employee">View My Required Tasks</a>
+<table class="table table-hovered table-info table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Order Address</th>
+            <th>Order Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Order o in Model)
+        {
+            <tr>
+                <td>@o.ID</td>
+                <td>@o.OrderAddress</td>
+                <td>@o.OrderDate </td>
+                <td>
+                    <a asp-action="EditOrder" asp-controller="Employee" asp-route-OrderId="@o.ID">Edit</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+

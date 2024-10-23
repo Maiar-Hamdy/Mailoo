@@ -1,0 +1,46 @@
+﻿@model List<Employee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<a asp-action="New">Add new Employee</a>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Hiring sDate</th>
+                <th>Edit</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+        <tbody>
+    @foreach(Employee e in Model)
+    {
+        <tr>
+            <td>@e.FullName</td>
+            <td>@e.PhoneNumber</td>
+            <td>@e.Email</td>
+            <td>@e.Gender</td>
+            <td>@e.HiringDate</td>
+            <td>
+                        <a asp-action="Edit" asp-route-id="@e.ID">Edit</a> |
+
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@e.ID">Delete</a> |
+            </td>
+        </tr>
+       
+    }
+        </tbody>
+     </table>
+    
+</div>

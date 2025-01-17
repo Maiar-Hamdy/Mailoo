@@ -1,0 +1,52 @@
+﻿@model Order
+@using Mailo.Data.Enums;
+@{
+    ViewData["Title"] = "Edit Order Status";
+}
+<div class="container">
+<h1>Edit Order Status</h1>
+<hr />
+<div class="row">
+
+
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" asp-route-OrderId="ID" />
+            <div class="form-group mb-3">
+                <label asp-for="OrderStatus" class="control-label"></label>
+                <select asp-for="OrderStatus" name="os" asp-route-os="OrderStatus" class="form-control">
+                    @foreach (var orderStatus in Enum.GetValues(typeof(OrderStatus)))
+                    {
+                        @if (Model.OrderStatus.ToString() != OrderStatus.Cancelled.ToString() || Model.OrderStatus.ToString() != OrderStatus.New.ToString())
+                        {
+                            <option asp-for="OrderStatus" class="form-check-input" value="@orderStatus" id="@orderStatus.ToString()">@orderStatus.ToString()</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Payment.PaymentStatus" class="text-danger"></span>
+                </div>
+            <div class="form-group mb-3">
+                <label asp-for="Payment.PaymentStatus" class="control-label"></label>
+                <select asp-for="Payment.PaymentStatus" name="ps" asp-route-ps="Payment.PaymentStatus" class="form-control">
+                    @foreach (var paymentStatus in Enum.GetValues(typeof(PaymentStatus)))
+                    {
+                        <option asp-for="Payment.PaymentStatus" class="form-check-input" value="@paymentStatus" id="@paymentStatus.ToString()">@paymentStatus.ToString()</option>
+                    }
+                </select>
+                <span asp-validation-for="Payment.PaymentStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-outline-primary" asp-action="ViewRequiredOrders">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

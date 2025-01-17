@@ -1,0 +1,211 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Home";
+}
+    <style>
+        .carousel-item {
+            height: 100vh;
+            background-size: contain;
+            background-position: center;
+            color: #fff;
+            position: relative;
+            background-repeat: no-repeat;
+            width: 100%;
+        }
+
+        .carousel-caption {
+            bottom: 40%;
+        }
+
+            .carousel-caption h1 {
+                font-family: 'Playfair Display', serif;
+                font-size: 64px;
+                font-weight: bold;
+            }
+
+            .carousel-caption p {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 18px;
+            }
+
+            .carousel-caption button {
+                background-color: #4d7eff;
+                color: white;
+                padding: 10px 25px;
+                border-radius: 30px;
+                border: none;
+                font-size: 16px;
+            }
+
+                .carousel-caption button:hover {
+                    background-color: #365fbf;
+                }
+    </style>
+
+
+    <!-- Bootstrap Carousel Slider -->
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active" style="background-image: url('@Url.Content("~/images/home1.png")');">
+                @*  <div class="carousel-caption text-start">
+                <p>Men Collection 2024</p>
+                <h1>NEW ARRIVALS</h1>
+                <button>SHOP NOW</button>
+                </div> *@
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item" style="background-image: url('@Url.Content("~/images/home2.png")');">
+                @* <div class="carousel-caption text-start">
+                <p>Summer Collection</p>
+                <h1>HOT DEALS</h1>
+                <button>SHOP NOW</button>
+                </div> *@
+            </div>
+
+
+        </div>
+
+        <!-- Carousel controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <br />
+    <hr />
+
+    <div class="container">
+        <div class="row justify-content-center">
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-md-4 col-sm-6 d-flex justify-content-center">
+                        <div class="card" style="width: 18rem;">
+                            <img src="@item.imageSrc" class="card-img-top" alt="Product Image">
+                            <div class="card-body">
+                                <h2 class="card-title">@item.Name</h2>
+                                <p class="card-text">@item.Description</p>
+                                <h4>
+                                    @item.TotalPrice @if (@item.TotalPrice != @item.Price)
+
+                                    {
+                                        <span class="text-decoration-line-through text-dark">@item.Price</span>
+                                    }
+                                </h4>
+                                <p class="card-text">Items left :@item.Quantity</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+    <div>
+        <!-- Footer -->
+        <footer class="text-center text-lg-start text-white" style="background-color: #45526e">
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: Links -->
+                <section class="">
+                    <!--Grid row-->
+                    <div class="row">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">
+                                MAILO
+                            </h6>
+                            <p>
+                                The Mailo Classic Hoodie is perfect for everyday wear, featuring a relaxed fit and soft fabric for all-day coziness.
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <hr class="w-100 clearfix d-md-none" />
+
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                            <p>
+                                <a asp-action="Getpants" asp-controller="Product" class="text-white">Pants</a>
+                            </p>
+                            <p>
+                                <a asp-action="Gethoddies" asp-controller="Product" class="text-white">Hoodies</a>
+                            </p>
+
+                        </div>
+                        <!-- Grid column -->
+
+                        <hr class="w-100 clearfix d-md-none" />
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">
+                                Useful links
+                            </h6>
+                            <p>
+                                <a class="text-white">Your Account</a>
+                            </p>
+                            <p>
+                                <a class="text-white">Become an Affiliate</a>
+                            </p>
+                            <p>
+                                <a class="text-white">Shipping Rates</a>
+                            </p>
+                            <p>
+                                <a class="text-white">Help</a>
+                            </p>
+                        </div>
+
+                        <!-- Grid column -->
+                        <hr class="w-100 clearfix d-md-none" />
+
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                            <p><i class="fas fa-home mr-3"></i> Bani-Suef, Egypt</p>
+                            <p><i class="fas fa-envelope mr-3"></i> mailostoreee@gmail.com</p>
+                            <p><i class="fas fa-phone mr-3"></i> +201011895030</p>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!--Grid row-->
+                </section>
+                <!-- Section: Links -->
+
+                <hr class="my-3">
+
+                <!-- Section: Copyright -->
+                <section class="p-3 pt-0">
+                    <div class="row d-flex align-items-center">
+                        <!-- Grid column -->
+                        <div class="col-md-7 col-lg-8 text-center text-md-start">
+                            <!-- Copyright -->
+                            <!-- Copyright -->
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+
+                            <!-- Instagram -->
+                            <a href="https://www.instagram.com/mailo.eg/profilecard/?igsh=MTVoazk4bWZvZzRhMQ==" class="btn btn-outline-light btn-floating m-1 text-white" role="button"><i class="fab fa-instagram"></i></a>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                </section>
+                <!-- Section: Copyright -->
+            </div>
+            <!-- Grid container -->
+        </footer>
+        <!-- Footer -->
+    </div>

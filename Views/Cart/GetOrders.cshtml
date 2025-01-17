@@ -1,0 +1,63 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "Show Orders";
+}
+
+<div class="container p-3">
+     @if (Model == null || !Model.Any())
+        {
+            <h1 class="text-center">No Orders</h1>
+        }
+        else
+        {
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Your Orders</h2>
+        </div>
+        
+    </div>
+
+    <hr />
+    <br />
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Order Status</th>
+                <th>Total Price</th>
+                @* <th>Payment Status</th> *@
+                <th>Cancel</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.Any())
+           { @foreach (Order o in Model)
+            {
+                <tr>
+                    <td>@o.OrderDate</td>
+                  
+                    <td>@o.OrderStatus</td>
+                    <td>@o.TotalPrice</td>
+                    @* <td>@o.Payment.PaymentStatus</td> *@
+                    <td>
+                        <form method="post" asp-action="CancelOrder" asp-controller="Cart">
+                                    <input asp-for="@o.ID" name="OrderId" asp-route-OrderId="@o.ID" hidden />
+                            <button type="submit" class="btn btn-outline-primary">Cancel</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a asp-action="PaymentWithPayPal" asp-controller="Payment" class="btn btn-primary">
+                            Pay with PayPal
+                        </a>
+                    </td>
+                </tr>
+
+            }}
+        </tbody>
+    </table>
+    }
+</div>
+
+

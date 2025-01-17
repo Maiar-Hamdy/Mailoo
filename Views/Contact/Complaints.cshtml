@@ -1,0 +1,35 @@
+﻿@model List<Contact>
+@{
+    ViewData["Title"] = "Messages";
+}
+<div class="container">
+    @if (Model == null || !Model.Any())
+    {
+        <h1 class="text-center">No Messages</h1>
+    }
+    else
+    {
+        <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center">Messages</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Email</td>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var contact in Model)
+                    {
+                        <tr>
+                            <td>@contact.user.Email</td>
+                            <td>@contact.Message</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+</div>

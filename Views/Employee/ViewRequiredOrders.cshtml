@@ -1,0 +1,56 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "View Required Orders";
+}
+<div class="container">
+    <div class="d-flex justify-content-between mb-4">
+<h1>View Required Orders</h1>
+        <a asp-action="ViewOrders" asp-controller="Employee" class="btn btn-primary text-decoration-none">View Orders</a>
+</div>
+@if (Model == null || !Model.Any())
+    {
+        <h1 class="text-center">No Tasks</h1>
+    }
+    else
+    {
+<table class="table table-light table-hover table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Order Address</th>
+            <th>Order Date</th>
+            <th>Order Price</th>
+            <th>Delivery Fee</th>
+            <th>Total Price</th>
+            <th>Phone Number</th>
+
+                <th>Payment Method</th>
+                <th>Payment Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Order o in Model)
+        {
+            <tr>
+                <td>@o.ID</td>
+                <td>@o.user.Address</td>
+                <td>@o.OrderDate </td>
+                <td>@o.OrderPrice</td>
+                <td>@o.DeliveryFee</td>
+                <td>@o.TotalPrice</td>
+                <td>@o.user.PhoneNumber</td>
+
+                    <td>@o.Payment.PaymentMethod</td>
+                    <td>@o.Payment.PaymentStatus</td>
+                <td>
+                    <a asp-action="EditOrder" class="btn btn-primary" asp-controller="Employee" asp-route-OrderId="@o.ID">Edit</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
+</div>

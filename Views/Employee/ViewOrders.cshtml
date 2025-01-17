@@ -1,0 +1,65 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "View Orders";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between mb-4">
+<h1>View Orders</h1>
+<a asp-action="ViewRequiredOrders" class="btn btn-primary text-decoration-none" asp-controller="Employee">View My Required Tasks</a>
+    </div>
+@if (Model == null || !Model.Any())
+    {
+        <h1 class="text-center">No Tasks</h1>
+    }
+    else
+    {
+<table class="table table-hover table-light table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Order Address</th>
+            <th>Order Date</th>
+            <th>Order Price</th>
+            <th>Delivery Fee</th>
+            <th>Total Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (Order o in Model)
+            {
+                <tr>
+                    <td>@o.ID</td>
+                    <td>@o.user.Address</td>
+                    <td>@o.OrderDate </td>
+                    <td>@o.OrderPrice</td>
+                    <td>@o.DeliveryFee</td>
+                    <td>@o.TotalPrice</td>
+                    <td>
+
+                        <form method="post" asp-action="AcceptOrder" asp-controller="Employee">
+                            <input name="ID" value="@o.ID" hidden />
+                            <input name="OrderAddress" value="@o.user.Address" hidden>
+                            <input name="OrderDate" value="@o.OrderDate" hidden>
+                            <input name="OrderPrice" value="@o.OrderPrice" hidden>
+                            <input name="DeliveryFee" value="@o.DeliveryFee" hidden>
+                            <input name="OrderStatus" value="@o.OrderStatus" hidden>
+                            <input name="UserID" value="@o.UserID" hidden>
+                            <input name="EmpID" value="@o.EmpID" hidden>
+                            <input name="TotalPrice" value="@o.TotalPrice" hidden>
+
+                            <button type="submit" class="btn btn-primary">Accept</button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+            }
+
+    </tbody>
+</table>
+}
+
+</div>

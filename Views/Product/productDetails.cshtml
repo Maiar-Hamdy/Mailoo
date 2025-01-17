@@ -1,0 +1,44 @@
+﻿@using Mailo.Data.Enums
+@model Product
+
+
+
+<div class="col-md-4 col-sm-6 d-flex justify-content-center">
+<div class="card" style="width: 18rem;">
+    <img src="@Model.imageSrc" class="card-img-top" alt="Product Image">
+    <div class="card-body">
+        <h2 class="card-title">@Model.Name</h2>
+        <p class="card-text">@Model.Description</p>
+        <h4 class="card-text"><span class="text-decoration-line-through text-dark">@Model.Price</span></h4>
+        
+        <div class="product-options">
+            <!-- Size Dropdown -->
+            <label for="sizeDropdown"><strong>Size:</strong></label>
+            <select id="sizeDropdown" name="availableSize" class="form-select">
+            <option value="">Select Size</option>
+            @foreach (var size in (IEnumerable<Sizes>)ViewBag.Sizes)
+            {
+                string selectedAttribute = size == Model.Sizes ? "selected=\"selected\"" : "";
+                @Html.Raw($"<option value=\"{size}\" {selectedAttribute}>{size}</option>")
+
+            }
+            </select>
+        </div>
+            <form asp-action="AddProduct" asp-controller="Cart" class="d-inline-block me-2" method="post">
+                <input type="hidden" name="ID" value="@Model.ID" />
+                <input type="hidden" name="Name" value="@Model.Name" />
+                <input type="hidden" name="Price" value="@Model.Price" />
+                <input type="hidden" name="Quantity" value="@Model.Quantity" />
+                <input type="hidden" name="TotalPrice" value="@Model.TotalPrice" />
+                <input type="hidden" name="Discount" value="@Model.Discount" />
+                <input type="hidden" name="imageSrc" value="@Model.imageSrc" />
+                <!-- Add any other properties that you want to send -->
+
+                <button type="submit" class="btn btn-success">Add to Cart</button>
+            </form>
+      
+      
+    </div>
+   
+</div>
+</div>

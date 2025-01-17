@@ -1,0 +1,22 @@
+﻿@model Payment
+@using (Html.BeginForm("ChoosePaymentMethod", "Cart", FormMethod.Post))
+{
+    <div class="container">
+    <h1><label asp-for="PaymentMethod" class="control-label text-primary"></label></h1>
+        <div class="form-check my-5">
+    @foreach (var paymentMethod in Enum.GetValues(typeof(Mailo.Data.Enums.PaymentMethod)))
+    {
+        <input asp-for="PaymentMethod" class="form-check-input" type="radio" value="@paymentMethod" id="@paymentMethod.ToString()">
+        <h3><label class="form-check-label" for="@paymentMethod.ToString()">@paymentMethod.ToString().Replace('_',' ')</label></h3>
+    }
+        </div>
+    <input asp-for="ID" hidden/>
+    <input asp-for="PaymentStatus" hidden />
+    <input asp-for="TotalPrice" hidden />
+    <input asp-for="PaymentDate" hidden />
+    <input asp-for="UserID" hidden />
+    <input asp-for="OrderId" hidden />
+    <input type="submit" value="Choose" class="btn btn-success p-2" />
+    </div>
+
+}
